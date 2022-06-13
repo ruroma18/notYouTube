@@ -20,7 +20,7 @@ CREATE TABLE video_rate (
   id serial PRIMARY KEY,
   user_id int REFERENCES users,
   video_id int REFERENCES videos,
-  is_like bool NOT NULL
+  is_like bool NOT NULL,
 );
 
 CREATE TABLE comments (
@@ -48,7 +48,12 @@ CREATE TABLE video_to_playlist (
 
 CREATE TABLE subsribe_playlist (
   palylist_id int REFERENCES playlist,
-  user_id int REFERENCES users
+  user_id int REFERENCES users,
 );
 
+ALTER TABLE subsribe_playlist
+ADD PRIMARY KEY (palylist_id, user_id);
 
+ALTER TABLE video_rate
+DROP COLUMN id,
+ADD PRIMARY KEY (user_id, video_id);
